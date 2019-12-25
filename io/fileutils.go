@@ -2,6 +2,7 @@ package io
 
 import (
 	"bufio"
+	"io/ioutil"
 	"os"
 	"os/exec"
 	"strings"
@@ -59,6 +60,7 @@ func ReadFileBytes(name string) ([]byte, error) {
 	return content, nil
 }
 
+
 // reads file and returns slice of string
 // TODO: what would happen if the file is very long?
 // would the slice of string be able to read all the content in one go?
@@ -90,7 +92,7 @@ func AppendToFile(filename, key, value string) error {
 	}
 	defer file.Close()
 
-	if _, err := file.Write([]byte(key + "," + value)); err != nil {
+	if _, err := file.Write([]byte(key + "," + value + "\n")); err != nil {
 		return err
 	}
 	return nil
