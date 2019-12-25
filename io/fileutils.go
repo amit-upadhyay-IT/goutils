@@ -43,6 +43,22 @@ func CreateFile(path string) error {
 	return nil
 }
 
+func ReadFileBytes(name string) ([]byte, error) {
+	file, err := os.Open(name)
+	if err != nil {
+		file.Close()
+		return nil, err
+	}
+	defer file.Close()
+	// read all file content at once
+	content, e := ioutil.ReadAll(file)
+	if e != nil {
+		file.Close()
+		return nil, e
+	}
+	return content, nil
+}
+
 // reads file and returns slice of string
 // TODO: what would happen if the file is very long?
 // would the slice of string be able to read all the content in one go?
